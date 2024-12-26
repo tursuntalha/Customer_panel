@@ -1,0 +1,14 @@
+
+
+/* Hover effect to grow elements */
+.card:hover {
+    transform: scale(1.05);  /* Kartı %5 büyüt */
+    transition: transform 0.3s ease;  /* Yumuşak geçiş */
+  }
+  
+  /* Hover effect to grow the logout button */
+  .card:hover {
+    transform: scale(1.05); /* Logout butonunun büyümesi */
+    transition: transform 0.3s ease;  /* Yumuşak geçiş */
+  }
+  
