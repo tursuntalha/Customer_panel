@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 const EmployeeModel = require("./models/Employee");
 const EventModel = require("./models/Event");
+const Product = require("./models/Product");
 const router = express.Router();
 const socketIo = require('socket.io');
 
@@ -33,6 +34,7 @@ mongoose.connect("mongodb://localhost:27017/yazlab")
             res.status(400).json("Incorrect password");
           }
         } else {
+
           res.status(404).json("No user found");
         }
       })
@@ -52,6 +54,179 @@ mongoose.connect("mongodb://localhost:27017/yazlab")
   });
   
 
+
+// Ürün ekleme endpointi
+app.post('/products', async (req, res) => {
+  try {
+    const { productName, stock, price } = req.body;
+
+    // Yeni ürün oluştur
+    const newProduct = new Product({
+      productName,
+      stock,
+      price,
+    });
+
+    // Veritabanına kaydet
+    const savedProduct = await newProduct.save();
+    res.status(201).json(savedProduct);
+  } catch (error) {
+    console.error('Ürün eklenirken hata:', error);
+    res.status(500).json({ message: 'Ürün eklenirken bir hata oluştu.' });
+  }
+});
+  
+
+// Ürünleri listeleme endpointi
+app.get('/api/products', async (req, res) => {
+  try {
+    const products = await Product.find(); // Veritabanından tüm ürünleri al
+    res.status(200).json(products); // Ürünleri JSON formatında döndür
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'Ürünler alınırken bir hata oluştu' });
+  }
+});
+
+
+// Siparişi gönderme işlemi
+app.post('/api/orders', async (req, res) => {
+  try {
+    const orderData = req.body;
+
+    // Sipariş geçerliliği kontrol et
+    const orderValidation = await checkOrderValidity(orderData);
+
+    if (!orderValidation.success) {
+      return res.status(400).json({ message: orderValidation.message });
+    }
+
+    // Sipariş veritabanına kaydedilmeden önce işlemi gerçekleştirin
+    const newOrder = await Order.create(orderData);  // Sipariş kaydetme işlemi
+    res.status(201).json(newOrder);  // Sipariş başarılı bir şekilde oluşturuldu
+
+  } catch (err) {
+    console.error('Sipariş oluşturulurken hata:', err);
+    res.status(500).json({ message: 'Sipariş oluşturulurken bir hata oluştu' });
+  }
+});
+
+// Sipariş işlemi sırasında ürün kontrolü yapma
+const checkOrderValidity = async (orderData) => {
+  try {
+    const products = await Product.find(); // Veritabanındaki ürünleri al
+
+    // Siparişteki her bir ürün için kontrol yap
+    for (let item of orderData.products) {
+      const product = products.find(p => p.productId === item.productId);
+
+      if (!product) {
+        return { success: false, message: `Ürün bulunamadı: ${item.productName}` };
+      }
+
+      if (product.stock < item.quantity) {
+        return { success: false, message: `Yeterli stok yok: ${item.productName}` };
+      }
+
+      if (product.price * item.quantity > orderData.totalAmount) {
+        return { success: false, message: `Yetersiz bakiye: ${item.productName}` };
+      }
+    }
+
+    return { success: true, message: 'Sipariş başarıyla onaylandı' };
+  } catch (err) {
+    console.error('Veritabanı hatası:', err);
+    return { success: false, message: 'Sipariş kontrolü yapılırken bir hata oluştu' };
+  }
+};
+
+app.post('/api/logs', (req, res) => {
+  console.log(req.body);  // Log kaydını al
+  res.status(200).json({ message: 'Log kaydı alındı' });  // JSON formatında yanıt döndür
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  ///////////////////////////////////////////
   app.put('/user/update', (req, res) => {
     const { email } = req.body; // E-posta, kullanıcının bilgilerini bulmak için
     const updateData = req.body; // Güncellenen veriler

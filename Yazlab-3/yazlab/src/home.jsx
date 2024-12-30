@@ -68,20 +68,7 @@ const Home = () => {
             </Link>
           </div>
 
-          {/* Log Paneli Card */}
-          <div className="col">
-            <Link 
-              to="/logpanel" 
-              className="card text-center text-white text-decoration-none transform transition-all duration-300 hover:scale-105 hover:bg-opacity-80" 
-              style={{ backgroundColor: 'rgba(0, 52, 89, 0.6)', border: 'none' }} 
-              state={{ email }}
-            >
-              <div className="card-body d-flex flex-column justify-content-center align-items-center">
-                <MdTimeline className="fs-1 mb-4" />
-                <h5 className="card-title">Log Paneli</h5>
-              </div>
-            </Link>
-          </div>
+          
         </div>
 
         {/* Logout Button */}
