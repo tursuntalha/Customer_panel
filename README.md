@@ -191,38 +191,38 @@ Customer_panel/
 ## Roadmap
 
 ### Phase 1 — Core CRM
-- [ ] PostgreSQL schema: Customer, Order, Note, User
-- [ ] FastAPI CRUD endpoints for customers + orders
-- [ ] JWT auth with role-based access (admin / sales / viewer)
-- [ ] React frontend: customer list + detail page
-- [ ] Customer notes (add, edit, delete)
+- [x] PostgreSQL schema: Customer, Order, Note, User
+- [x] FastAPI CRUD endpoints for customers + orders
+- [x] JWT auth with role-based access (admin / sales / viewer)
+- [x] React frontend: customer list + detail page
+- [x] Customer notes (add, edit, delete)
 
 ### Phase 2 — Dashboard + Analytics
-- [ ] KPI cards (total customers, active, at-risk, revenue)
-- [ ] Revenue chart (monthly, Chart.js)
-- [ ] Customer activity heatmap
-- [ ] Top customers by revenue table
+- [x] KPI cards (total customers, active, at-risk, revenue)
+- [x] Revenue chart (monthly, Chart.js)
+- [x] Customer activity heatmap
+- [x] Top customers by revenue table
 
 ### Phase 3 — Churn Prediction Model
-- [ ] Generate synthetic training data (RFM features)
-- [ ] Train Random Forest classifier (Scikit-learn)
-- [ ] FastAPI endpoint: `/customers/{id}/churn-score`
-- [ ] Display churn badge on customer cards
-- [ ] Nightly batch update (cron job)
+- [x] Generate synthetic training data (RFM features)
+- [x] Train Random Forest classifier (Scikit-learn)
+- [x] FastAPI endpoint: `/customers/{id}/churn-score`
+- [x] Display churn badge on customer cards
+- [x] Nightly batch update (cron job)
 
 ### Phase 4 — Sentiment Analysis + AI Email Drafter
-- [ ] Ollama integration endpoint
-- [ ] Auto-analyze sentiment on new notes
-- [ ] Sentiment timeline chart per customer
-- [ ] Email Composer: customer select + intent select → LLM draft
-- [ ] Copy-to-clipboard + edit before sending
+- [x] Ollama integration endpoint
+- [x] Auto-analyze sentiment on new notes
+- [x] Sentiment timeline chart per customer
+- [x] Email Composer: customer select + intent select → LLM draft
+- [x] Copy-to-clipboard + edit before sending
 
 ### Phase 5 — Forecasting + PDF + Docker
-- [ ] Prophet revenue forecast (30-day)
-- [ ] Anomaly detection alerts (Isolation Forest)
-- [ ] PDF report generation (customer profile + weekly summary)
-- [ ] Docker + docker-compose for full stack
-- [ ] `.env`-based configuration
+- [x] Prophet revenue forecast (30-day)
+- [x] Anomaly detection alerts (Isolation Forest)
+- [x] PDF report generation (customer profile + weekly summary)
+- [x] Docker + docker-compose for full stack
+- [x] `.env`-based configuration
 
 ---
 
